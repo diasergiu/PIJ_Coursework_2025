@@ -5,11 +5,22 @@ import java.util.List;
 public class Board {
 
     List<Player> listPlayers;
+    /*
+    *   The board of the game. A grid a objects Tile
+    *   Number of columns must be between 7 and 26
+    *   Number of rows must be between 10 and 99
+    *   The board must have at least 192 Tiles
+    *   Board can be loaded from a file ( example the defaultBoard.txt)
+     */
     Tile[][] board;
     // we have a bag that holds a certain amount of pieces or tiles that the player can draw from to
     // get back to 7 pieces after he played some
-    int[] tileBag;
-
+    /*
+    *
+    */
+    public Board(int n, int m){
+        board = new Tile[n][m];
+    }
 
     // when we put pieces on the board we calculate if there are characters between the two piece placed
     // need a way to select pieces that we have on the table

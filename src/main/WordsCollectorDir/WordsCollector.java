@@ -16,11 +16,14 @@ public class WordsCollector {
             while((currentWord = reader.readLine()) != null){
                 allWordsPossible.add(currentWord);
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
         return allWordsPossible;
+    }
+
+    public void getBagFromFile(String path){
+
     }
 }

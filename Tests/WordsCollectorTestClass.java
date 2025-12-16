@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 public class WordsCollectorTestClass {
 
-    private final static String PATH_TO_TEST = "resources/TestWords.txt";
+    private final static String PATH_TO_TEST = "TestResources/Test/TestWords.txt";
     private final static String PATH_TO_ORIGINALFILE = "resources/wordlist.txt";
     @Test
     public void TestCanLoadAllWords(){
