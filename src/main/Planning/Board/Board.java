@@ -19,7 +19,24 @@ public class Board {
     *
     */
     public Board(int n, int m){
+        isBoardLegit(n , m);
         board = new Tile[n][m];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                board[i][j] = new Tile();
+            }
+        }
+    }
+
+    public Board(String Path){
+
+    }
+
+    private boolean isBoardLegit(int n, int m){
+        if(n < 7 || n > 26 || m < 10 || m > 99 || n * m < 192){
+            return false;
+        }
+        return true;
     }
 
     // when we put pieces on the board we calculate if there are characters between the two piece placed
@@ -29,4 +46,25 @@ public class Board {
     // we need to be able to take back pieces after we place them and take them back after we place a wrong word
     // game ends where there are no more tiles in the tileBag and a player dosent have any more tiles
     // the game can also end if all players pass their turn.
+    public void drawBoard(){
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                StringBuilder builder = new StringBuilder();
+                builder.append(board[i][j].getCharacter());
+                int defaultLengthBetweenCharacters = 6;
+                if(board[i][j].getValueMultiplayer() != 1){
+                    builder.append(board[i][j].getValueMultiplayer());
+                }
+                if(board[i][j].isPremiumWord()){
+                    builder.append('!');
+                }
+                for(int m = builder.length(); m < defaultLengthBetweenCharacters; m++){
+                    builder.append(' ');
+                }
+                System.out.print(builder);
+            }
+            System.out.println();
+        }
+    }
+
 }
