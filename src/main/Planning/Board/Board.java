@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Board {
 
-    List<Player> listPlayers;
     /*
     *   The board of the game. A grid a objects Tile
     *   Number of columns must be between 7 and 26
@@ -19,7 +18,6 @@ public class Board {
     *
     */
     public Board(int n, int m){
-        isBoardLegit(n , m);
         board = new Tile[n][m];
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
@@ -32,11 +30,8 @@ public class Board {
 
     }
 
-    private boolean isBoardLegit(int n, int m){
-        if(n < 7 || n > 26 || m < 10 || m > 99 || n * m < 192){
-            return false;
-        }
-        return true;
+    private void makeBoardFromFile(String path){
+
     }
 
     // when we put pieces on the board we calculate if there are characters between the two piece placed

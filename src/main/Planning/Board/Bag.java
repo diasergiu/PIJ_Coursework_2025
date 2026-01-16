@@ -33,7 +33,7 @@ public class Bag {
                 break;
             }
             for(int nTimes = Integer.parseInt(listOfStrings[0]); nTimes >= 0; nTimes--){
-                Tile newTile = new Tile(listOfStrings[1].charAt(0), Integer.parseInt(listOfStrings[2]));
+                Tile newTile = new Tile(listOfStrings[1].charAt(0), Integer.parseInt(listOfStrings[2]), false);
                 bag.add(newTile);
             }
 

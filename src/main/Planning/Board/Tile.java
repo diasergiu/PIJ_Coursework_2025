@@ -26,9 +26,10 @@ public class Tile {
         this.valueMultiplayer = defaultValue;
 //        this(defaultCharacter, defaultValue);
     }
-    public Tile(char character, int valueMultiplyer) {
+    public Tile(char character, int valueMultiplyer, boolean isPremiumWord) {
         this.character = character;
         this.valueMultiplayer = valueMultiplyer;
+        this.premiumWord = isPremiumWord;
     }
     public void setStartTile(boolean startTile) {
         this.startTile = startTile;
@@ -40,6 +41,10 @@ public class Tile {
 
     public int getValueMultiplayer() {
         return valueMultiplayer;
+    }
+
+    public void setPremiumWord(boolean premiumWord) {
+        this.premiumWord = premiumWord;
     }
 
     // dont know if this class is gonna play the role of pieces from your hand,
