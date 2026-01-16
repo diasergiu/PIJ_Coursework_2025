@@ -1,13 +1,14 @@
+package FileCollectorTest;
+
 import Planning.Board.Tile;
-import WordsCollectorDir.WordsCollector;
 import org.junit.jupiter.api.Test;
 
-public class TestMakeGameBoard {
+public class BoardFileCollectorTest {
 
     private final static String defaultFile = "Tests/TestResources/Board/defaultBoard.txt";
     @Test
     public void testMakeNormalGame(){
-        Tile[][] board = WordsCollector.getGameFromFile(defaultFile);
+        Tile[][] board = FileCollector.BoardFileCollector.getBoardFromFile(defaultFile);
         drawBoard(board);
     }
 

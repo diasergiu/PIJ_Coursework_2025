@@ -1,35 +1,13 @@
-package WordsCollectorDir;
+package FileCollector;
 
-import Planning.Board.Board;
-import Planning.Board.Game;
 import Planning.Board.Tile;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
 
-public class WordsCollector {
+public class BoardFileCollector {
 
-    public static HashSet<String> getVocabularyFromFile(String path){
-//        String path = "resources/wordlist.txt";
-        HashSet<String> allWordsPossible = new HashSet<String>();
-        try{
-            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
-            String currentWord;
-            while((currentWord = reader.readLine()) != null){
-                allWordsPossible.add(currentWord);
-            }
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return allWordsPossible;
-    }
-
-    public void getBagFromFile(String path){
-
-    }
 
 //    public static boolean isGameFileFunctional(String path){
 //        try{
@@ -40,7 +18,7 @@ public class WordsCollector {
 //        }
 //    }
 
-    public static Tile[][] getGameFromFile(String path){
+    public static Tile[][] getBoardFromFile(String path){
         try{
             BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
             String currentWord;

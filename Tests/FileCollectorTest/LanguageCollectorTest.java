@@ -1,24 +1,26 @@
-import WordsCollectorDir.WordsCollector;
+package FileCollectorTest;
+
+import FileCollector.LanguageFileCollector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
 
-public class WordsCollectorTestClass {
+public class LanguageCollectorTest {
 
     private final static String PATH_TO_TEST = "Tests/TestResources/TestWords.txt";
     private final static String PATH_TO_ORIGINALFILE = "resources/WordsInVocabulary/wordlist.txt";
     @Test
     public void TestCanLoadAllWords(){
-        HashSet<String> actual = WordsCollector.getVocabularyFromFile(PATH_TO_TEST);
+        HashSet<String> actual = LanguageFileCollector.getLanguageFromFile(PATH_TO_TEST);
         HashSet<String> expected = getExpected();
         Assertions.assertEquals(actual.size(), expected.size());
     }
 
     @Test
     public void TestWordsAreInList(){
-        HashSet<String> actual = WordsCollector.getVocabularyFromFile(PATH_TO_ORIGINALFILE);
+        HashSet<String> actual = LanguageFileCollector.getLanguageFromFile(PATH_TO_ORIGINALFILE);
         HashSet<String> expected = getExpected();
         for(String word : expected){
             Assertions.assertTrue(actual.contains(word));

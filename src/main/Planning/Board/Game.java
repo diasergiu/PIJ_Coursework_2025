@@ -1,8 +1,8 @@
 package Planning.Board;
 
-import java.io.BufferedReader;
 import java.util.HashSet;
-import WordsCollectorDir.WordsCollector;
+
+import FileCollector.LanguageFileCollector;
 
 // game must have human or computer players
 // game can be open or closed (you can see the tiles that the other player can have)
@@ -23,7 +23,7 @@ public class Game {
         for(int i = 0; i < bagsWithCharacters.length; i++){
             bagsWithCharacters[i] = tilesPerCharacter;
         }
-        this.AcceptableCharacters = WordsCollector.getVocabularyFromFile(path);
+        this.AcceptableCharacters = LanguageFileCollector.getLanguageFromFile(path);
     }
     /*
         The boards needs to have rows between 7 and 26
