@@ -5,7 +5,7 @@ import Planning.Board.Bag;
 import org.junit.jupiter.api.Test;
 
 public class BagFileCollectorTest {
-    private static final String EMPTY_FILE = "Tests/TestResources/BagTest/EmptyFile.txt";
+    private static final String EMPTY_FILE = "Tests/TestResources/BagTest/TestEmpty.txt";
     private static final String NOT_A_FILE = "";
 
     private static final String DEFAULT_FILE = "resources/Bags/DefaultBag";
