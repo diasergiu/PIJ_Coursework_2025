@@ -9,14 +9,63 @@ import java.io.IOException;
 public class BoardFileCollector {
 
 
-//    public static boolean isGameFileFunctional(String path){
-//        try{
-//            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
-//
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public static boolean isGameFileFunctional(String path){
+        try{
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
+            String col = reader.readLine();
+            String row = reader.readLine();
+            if(col == null || row == null || col.isEmpty() || !IntegerChecker.isInteger(col) || !IntegerChecker.isInteger(row)){
+                return false;
+            }
+            int _row = Integer.parseInt(row);
+            int _col = Integer.parseInt(col);
+            if(!isBoardLegit(_col, _row)){
+                return false;
+            }
+            String current;
+
+            while((current = reader.readLine()) != null){
+                String[] listOfTiles = current.split(" ");
+                if(listOfTiles.length != _col){
+                    return false;
+                }
+                _row--;
+                for(String currentTile : listOfTiles){
+                    if(!isGoodTile(currentTile)){
+                        return false;
+                    }
+                }
+            }
+            return _row == 0;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static boolean isGoodTile(String tile){
+        int left = 0, right = tile.length() - 1;
+        if(tile.charAt(right) != '.' || ( tile.charAt(right) < 65 || tile.charAt(right) > 90)){
+            return false;
+        }
+        right--;
+        if(tile.charAt(left) == '!'){
+            left++;
+        }
+        if(tile.charAt(left) == '-'){
+            left++;
+        }
+        if(!isGoodTile(tile.substring(left, right))){
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isBoardLegit(int col, int row){
+        if(col < 7 || col > 26 || row < 10 || row > 99 || col * row <= 192){
+            return false;
+        }
+        return true;
+    }
 
     public static Tile[][] getBoardFromFile(String path){
         try{
@@ -51,9 +100,7 @@ public class BoardFileCollector {
                 currentRow++;
             }
             return board;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

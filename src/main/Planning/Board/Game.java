@@ -30,11 +30,6 @@ public class Game {
         column between 10 and 99
         and total amount os space needs to be bigger or equal to 192
     */
-    private boolean isBoardLegit(int n, int m){
-        if(n < 7 || n > 26 || m < 10 || m > 99 || n * m <= 192){
-            return false;
-        }
-        return true;
-    }
+
 
 }

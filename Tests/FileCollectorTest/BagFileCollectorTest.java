@@ -2,13 +2,19 @@ package FileCollectorTest;
 
 import FileCollector.BagFileCollector;
 import Planning.Board.Bag;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class BagFileCollectorTest {
-    private static final String EMPTY_FILE = "Tests/TestResources/BagTest/TestEmpty.txt";
+    private static final String EMPTY_FILE = "Tests/TestResources/BagTest/TestEmpty";
     private static final String NOT_A_FILE = "";
 
-    private static final String DEFAULT_FILE = "resources/Bags/DefaultBag";
+    private static final String NORMAL_FILE = "Tests/TestResources/BagTest/TestNormalFile";
+    private static final String NUMBER_FILE = "Tests/TestResources/BagTest/TestNormalFile";
+    private static final String ODD_Character = "Tests/TestResources/BagTest/TestOddCharacters";
+    private static final String UNREGULAR_ORDER = "Tests/TestResources/BagTest/TestUnregularOrder";
+    private static final String FEWER_COL = "Tests/TestResources/BagTest/TestFewerCol";
+    private static final String FEWER_ROWS = "Tests/TestResources/BagTest/TestFewerRows";
     @Test
     public void testEmptyFile(){
         Bag bag = BagFileCollector.getBagFromFile(EMPTY_FILE);
@@ -32,7 +38,43 @@ public class BagFileCollectorTest {
 
     @Test
     public void testReadDefaultFile(){
-        Bag bag = BagFileCollector.getBagFromFile(DEFAULT_FILE);
+        Bag bag = BagFileCollector.getBagFromFile(NORMAL_FILE);
         int a = 2 + 3;
+    }
+
+    @Test
+    public void testEmptyFileCorrect(){
+        Assertions.assertFalse(BagFileCollector.isBagFileCorrect(EMPTY_FILE));
+    }
+
+    @Test
+    public void testFileNotFoundCorrect(){
+        Assertions.assertFalse(BagFileCollector.isBagFileCorrect(NOT_A_FILE));
+    }
+    @Test
+    public void testNormalFileCorrect(){
+        Assertions.assertTrue(BagFileCollector.isBagFileCorrect(NORMAL_FILE));
+    }
+    @Test
+    public void testNumberFileCorrect(){
+        Assertions.assertTrue(BagFileCollector.isBagFileCorrect(NUMBER_FILE));
+    }
+    @Test
+    public void testOddFileCorrect(){
+        Assertions.assertFalse(BagFileCollector.isBagFileCorrect(ODD_Character));
+    }
+    @Test
+    public void testUnregularFileCorrect(){
+        Assertions.assertFalse(BagFileCollector.isBagFileCorrect(UNREGULAR_ORDER));
+    }
+
+    @Test
+    public void testFewerCol(){
+        Assertions.assertFalse(BagFileCollector.isBagFileCorrect(FEWER_COL));
+    }
+
+    @Test
+    public void testFewerRows(){
+        Assertions.assertFalse(BagFileCollector.isBagFileCorrect(FEWER_ROWS));
     }
 }

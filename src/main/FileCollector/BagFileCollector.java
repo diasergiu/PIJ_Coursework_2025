@@ -4,9 +4,34 @@ import Planning.Board.Bag;
 import Planning.Board.Tile;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class BagFileCollector {
+
+    public static boolean isBagFileCorrect(String path){
+        boolean isEmpty = false;
+        try{
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
+            String currentWord;
+            while((currentWord = reader.readLine()) != null){
+                isEmpty = true;
+                String[] allStrings = currentWord.split(" ");
+                if(allStrings.length != 3){
+                    return false;
+                }
+                IntegerChecker.isInteger(allStrings[0]);
+                IntegerChecker.isInteger(allStrings[2]);
+
+                if(allStrings[1].length() != 1 || !Character.isUpperCase(allStrings[1].charAt(0))){
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return isEmpty;
+    }
 
     public static Bag getBagFromFile(String path) {
         BufferedReader reader = null;
