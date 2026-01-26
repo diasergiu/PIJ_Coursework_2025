@@ -57,6 +57,7 @@ public class BagFileCollectorTest {
     public void testNormalFileCorrect(){
         BagFileCollector fileCollector = new BagFileCollector();
         Assertions.assertTrue(fileCollector.isFileCorrect(NORMAL_FILE));
+        System.out.println("sada");
     }
     @Test
     public void testNumberFileCorrect(){

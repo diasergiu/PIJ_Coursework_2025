@@ -7,16 +7,16 @@ import java.util.List;
 
 public class Bag {
 
-    public List<Tile> bag;
+    public List<Piece> bag;
 
     public Bag(){
-        bag = new ArrayList<Tile>();
+        bag = new ArrayList<Piece>();
     }
-    public void addToBag(Tile newTile){
+    public void addToBag(Piece newTile){
         bag.add(newTile);
     }
-    public Tile RemoveFromBag(int index){
-        Tile send = bag.get(index);
+    public Piece RemoveFromBag(int index){
+        Piece send = bag.get(index);
         int lastIndex = bag.size() - 1;
         bag.set(index, bag.get(lastIndex));
         bag.remove(lastIndex);

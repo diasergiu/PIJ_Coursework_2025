@@ -1,6 +1,7 @@
 package FileCollector;
 
 import Planning.Board.Bag;
+import Planning.Board.Piece;
 import Planning.Board.Tile;
 
 import java.io.BufferedReader;
@@ -25,7 +26,7 @@ public class BagFileCollector implements FileCollector {
                     return false;
                 }
 
-                if(allStrings[1].length() != 1 || !Character.isUpperCase(allStrings[1].charAt(0))){
+                if(allStrings[1].length() != 1 && (!Character.isUpperCase(allStrings[1].charAt(0)) || allStrings[1].charAt(0) == '?')){
                     return false;
                 }
             }
@@ -48,8 +49,12 @@ public class BagFileCollector implements FileCollector {
                     System.out.println("File is not a proper bag file");
                     break;
                 }
+                boolean isWiledcard = false;
+                if(listOfStrings[1].charAt(0) == '?'){
+                    isWiledcard = true;
+                }
                 for(int nTimes = Integer.parseInt(listOfStrings[0]); nTimes >= 0; nTimes--){
-                    Tile newTile = new Tile(listOfStrings[1].charAt(0), Integer.parseInt(listOfStrings[2]), false);
+                    Piece newTile = new Piece(listOfStrings[1].charAt(0), Integer.parseInt(listOfStrings[2]), isWiledcard);
                     bag.addToBag(newTile);
                 }
 

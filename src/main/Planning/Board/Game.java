@@ -26,6 +26,13 @@ public class Game {
             String pathToBags = getFileNameFromNumber(listOfBags, new BagFileCollector(), messageBags);
             String pathToLanguage = getFileNameFromNumber(listOfLanguages, new LanguageFileCollector(), messageLanguage);
 
+//            System.out.println("How many players do you want");
+//            String numberPlayersCheck = "";
+//            while(!IntegerChecker.isInteger(numberPlayersCheck)){
+//
+//                numberPlayersCheck =
+//            }
+
             boolean openGame = openOrClosedGame();
             Board newGame = new Board(pathToBags, pathToBoard, pathToLanguage, 2, openGame);
         }

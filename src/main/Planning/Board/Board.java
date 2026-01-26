@@ -98,7 +98,9 @@ public class Board {
     // game ends where there are no more tiles in the tileBag and a player dosent have any more tiles
     // the game can also end if all players pass their turn.
     public void drawBoard(){
+        printTopBottom(board[0].length);
         for(int i = 0; i < board.length; i++){
+            System.out.print(i + "     ");
             for(int j = 0; j < board[i].length; j++){
                 StringBuilder builder = new StringBuilder();
                 builder.append(board[i][j].getCharacter());
@@ -114,7 +116,19 @@ public class Board {
                 }
                 System.out.print(builder);
             }
-            System.out.println();
+            System.out.println(i);
         }
+        printTopBottom(board[0].length);
+    }
+
+    private void printTopBottom(int col){
+        StringBuilder  _builder = new StringBuilder();
+        _builder.append("      ");
+        char character = 'a';
+        for(int i = 0; i < col; i++){
+            _builder.append((char)(character + i));
+            _builder.append("     ");
+        }
+        System.out.println(_builder);
     }
 }
