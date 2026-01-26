@@ -6,10 +6,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class BoardFileCollector {
+public class BoardFileCollector implements FileCollector {
 
 
-    public static boolean isGameFileFunctional(String path){
+    public boolean isFileCorrect(String path){
         try{
             BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
             String col = reader.readLine();
@@ -38,13 +38,14 @@ public class BoardFileCollector {
             }
             return _row == 0;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not found");
+            return false;
         }
     }
 
     private static boolean isGoodTile(String tile){
-        int left = 0, right = tile.length() - 1;
-        if(tile.charAt(right) != '.' || ( tile.charAt(right) < 65 || tile.charAt(right) > 90)){
+         int left = 0, right = tile.length() - 1;
+        if(tile.charAt(right) != '.' && ( tile.charAt(right) < 65 || tile.charAt(right) > 90)){// i dont think this works
             return false;
         }
         right--;
@@ -54,7 +55,7 @@ public class BoardFileCollector {
         if(tile.charAt(left) == '-'){
             left++;
         }
-        if(!isGoodTile(tile.substring(left, right))){
+        if(left <= right && !IntegerChecker.isInteger(tile.substring(left, right))){
             return false;
         }
         return true;

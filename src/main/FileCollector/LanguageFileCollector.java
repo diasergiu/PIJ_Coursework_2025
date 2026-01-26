@@ -5,9 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
 
-public class LanguageFileCollector {
+public class LanguageFileCollector implements FileCollector {
 
-    public static boolean isFileCorrect(String path){
+    public boolean isFileCorrect(String path){
         boolean isEmpty = false;
         try{
             BufferedReader reader = new BufferedReader(new java.io.FileReader(path));

@@ -7,9 +7,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class BagFileCollector {
+public class BagFileCollector implements FileCollector {
 
-    public static boolean isBagFileCorrect(String path){
+    public boolean isFileCorrect(String path){
         boolean isEmpty = false;
         try{
             BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
@@ -20,8 +20,10 @@ public class BagFileCollector {
                 if(allStrings.length != 3){
                     return false;
                 }
-                IntegerChecker.isInteger(allStrings[0]);
-                IntegerChecker.isInteger(allStrings[2]);
+                if(!IntegerChecker.isInteger(allStrings[0]) ||
+                        !IntegerChecker.isInteger(allStrings[2])){
+                    return false;
+                }
 
                 if(allStrings[1].length() != 1 || !Character.isUpperCase(allStrings[1].charAt(0))){
                     return false;

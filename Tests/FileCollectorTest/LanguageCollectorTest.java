@@ -55,30 +55,38 @@ public class LanguageCollectorTest {
 
     @Test
     public void testEmptyFile(){
-        Assertions.assertFalse(LanguageFileCollector.isFileCorrect(EMPTY_FILE));
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(EMPTY_FILE));
     }
 
     @Test
-    public void testFileNotFound(){Assertions.assertFalse(LanguageFileCollector.isFileCorrect(""));}
+    public void testFileNotFound(){
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(""));}
     @Test
     public void testNormalFile(){
-        Assertions.assertTrue(LanguageFileCollector.isFileCorrect(NORMAL_FILE));
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertTrue(fileCollector.isFileCorrect(NORMAL_FILE));
     }
     @Test
     public void testNumberFile(){
-        Assertions.assertFalse(LanguageFileCollector.isFileCorrect(NUMBERS_FILE));
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(NUMBERS_FILE));
     }
     @Test
     public void testOddCharacter(){
-        Assertions.assertFalse(LanguageFileCollector.isFileCorrect(ODD_CHARACTER));
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(ODD_CHARACTER));
     }
     @Test
     public void testTowWords(){
-        Assertions.assertFalse(LanguageFileCollector.isFileCorrect(TOW_WORDS));
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TOW_WORDS));
     }
     @Test
     public void testUpparcaseLetter(){
-        Assertions.assertFalse(LanguageFileCollector.isFileCorrect(UPPARCASE_lETTER));
+        LanguageFileCollector fileCollector = new LanguageFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(UPPARCASE_lETTER));
     }
 
 }

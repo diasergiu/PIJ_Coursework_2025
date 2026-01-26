@@ -1,5 +1,10 @@
 package Planning.Board;
 
+import FileCollector.BagFileCollector;
+import FileCollector.BoardFileCollector;
+import FileCollector.LanguageFileCollector;
+
+import java.util.HashSet;
 import java.util.List;
 
 public class Board {
@@ -9,14 +14,19 @@ public class Board {
     *   Number of columns must be between 7 and 26
     *   Number of rows must be between 10 and 99
     *   The board must have at least 192 Tiles
-    *   Board can be loaded from a file ( example the defaultBoard.txt)
+    *   Board can be loaded from a file ( example the DefaultBoard)
      */
     Tile[][] board;
+    private boolean isOpenGame;
     // we have a bag that holds a certain amount of pieces or tiles that the player can draw from to
     // get back to 7 pieces after he played some
     /*
     *
     */
+    private Player[] listPlayers;
+    private Bag gameBag;
+    private HashSet<String> AcceptableCharacters;
+    private int[] bagsWithCharacters;
     public Board(int n, int m){
         board = new Tile[n][m];
         for(int i = 0; i < n; i++){
@@ -25,12 +35,21 @@ public class Board {
             }
         }
     }
-
-    public Board(String Path){
-
+    public Board(String pathToBags, String pathToBoard, String pathToLanguage, int numberOfPlayers, boolean openGame){
+        this.board = BoardFileCollector.getBoardFromFile(pathToBoard);
+        this.gameBag = BagFileCollector.getBagFromFile(pathToBags);
+        this.AcceptableCharacters = LanguageFileCollector.getLanguageFromFile(pathToLanguage);
+        this.listPlayers = new Player[numberOfPlayers];
+        this.isOpenGame = openGame;
+        for(int i = 0; i < listPlayers.length; i++){
+            listPlayers[i] = new Player();
+        }
     }
 
     private void makeBoardFromFile(String path){
+
+    }
+    public void play() {
 
     }
 
@@ -61,5 +80,4 @@ public class Board {
             System.out.println();
         }
     }
-
 }

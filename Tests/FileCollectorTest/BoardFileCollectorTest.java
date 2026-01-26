@@ -44,32 +44,39 @@ public class BoardFileCollectorTest {
 
     @Test
     public void testIsboardFileEmpty(){
-        Assertions.assertFalse(BoardFileCollector.isGameFileFunctional(TEST_EMPTY));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TEST_EMPTY));
     }
     @Test
     public void testIsboardFileLegitMoreLines(){
-        Assertions.assertFalse(BoardFileCollector.isGameFileFunctional(TEST_MORE_LINES));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TEST_MORE_LINES));
     }
     @Test
     public void testIsboardFileLegitOddCharacter(){
-        Assertions.assertFalse(BoardFileCollector.isGameFileFunctional(TEST_ODD_CHARACTER));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TEST_ODD_CHARACTER));
     }
     @Test
     public void testIsboardFileLegitOnlyCol(){
-        Assertions.assertFalse(BoardFileCollector.isGameFileFunctional(TEST_ONLY_COL));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TEST_ONLY_COL));
     }
     @Test
     public void testIsboardFileOnlyGroupSize(){
-        Assertions.assertFalse(BoardFileCollector.isGameFileFunctional(TEST_ONLY_GROUP_SIZE));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TEST_ONLY_GROUP_SIZE));
     }
     @Test
     public void testIsboardFileLegitOnlyRow(){
-        Assertions.assertFalse(BoardFileCollector.isGameFileFunctional(TEST_ONLY_ROW));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertFalse(fileCollector.isFileCorrect(TEST_ONLY_ROW));
     }
 
     @Test
     public void testIsboardFileLegitDefault(){
-        Assertions.assertTrue(BoardFileCollector.isGameFileFunctional(TEST_DEFAULT));
+        BoardFileCollector fileCollector = new BoardFileCollector();
+        Assertions.assertTrue(fileCollector.isFileCorrect(TEST_DEFAULT));
     }
 
 }
