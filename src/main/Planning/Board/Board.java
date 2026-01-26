@@ -5,7 +5,6 @@ import FileCollector.BoardFileCollector;
 import FileCollector.LanguageFileCollector;
 
 import java.util.HashSet;
-import java.util.List;
 
 public class Board {
 
@@ -25,7 +24,7 @@ public class Board {
     */
     private Player[] listPlayers;
     private Bag gameBag;
-    private HashSet<String> AcceptableCharacters;
+    private HashSet<String> acceptableCharacters;
     private int[] bagsWithCharacters;
     public Board(int n, int m){
         board = new Tile[n][m];
@@ -38,7 +37,7 @@ public class Board {
     public Board(String pathToBags, String pathToBoard, String pathToLanguage, int numberOfPlayers, boolean openGame){
         this.board = BoardFileCollector.getBoardFromFile(pathToBoard);
         this.gameBag = BagFileCollector.getBagFromFile(pathToBags);
-        this.AcceptableCharacters = LanguageFileCollector.getLanguageFromFile(pathToLanguage);
+        this.acceptableCharacters = LanguageFileCollector.getLanguageFromFile(pathToLanguage);
         this.listPlayers = new Player[numberOfPlayers];
         this.isOpenGame = openGame;
         for(int i = 0; i < listPlayers.length; i++){
@@ -51,6 +50,44 @@ public class Board {
     }
     public void play() {
 
+    }
+
+    private boolean isMoveCorrect(int row, int col, String characters, boolean directionDown){
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        while(i < characters.length() && row < board.length && col < board[row].length){
+            if(this.board[row][col].getCharacter() != '.'){
+                builder.append(board[row][col].getCharacter());
+            } else {
+                builder.append(characters.charAt(i));
+                i++;
+            }
+            if(directionDown){
+                row--;
+            }else{
+                col++;
+            }
+        }
+        if(!acceptableCharacters.contains(builder.toString())){
+            return false;
+        }
+        return i == characters.length();
+    }
+
+    private void changeBoard(int row, int col, String characters, boolean directionDown){
+        for(int i = 0; i < characters.length();){
+            if(board[row][col].getCharacter() == '.'){
+                board[row][col].setCharacter(characters.charAt(i));
+                i++;
+            }
+
+            if(directionDown){
+                row--;
+            }
+            else{
+                col++;
+            }
+        }
     }
 
     // when we put pieces on the board we calculate if there are characters between the two piece placed

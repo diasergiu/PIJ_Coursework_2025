@@ -70,8 +70,8 @@ public class Game {
     }
 
     private boolean openOrClosedGame(){
+        System.out.println("do you want an _O_pen game or _C_losed game");
         while(true){
-            System.out.println("do you want an _O_pen game or _C_losed game");
             Scanner scanner = new Scanner(System.in);
             String gameType = scanner.nextLine();
             if(gameType.equals("O")){
