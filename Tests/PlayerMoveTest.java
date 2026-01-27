@@ -53,11 +53,4 @@ public class PlayerMoveTest {
         int expected = 3;
         Assertions.assertEquals(expected, move.col);
     }
-
-    @Test
-    public void playerMoveWhileTest(){
-        PlayerMove move = new PlayerMove();
-        Scanner scanner = new Scanner
-        while(move.setCoordinates(scanner.nextLine()));
-    }
 }
