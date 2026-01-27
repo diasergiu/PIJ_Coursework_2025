@@ -73,6 +73,7 @@ public class Board {
             }
 
             listPlayers[player].printPieces();
+            PlayerMove move = listPlayers[player].makeMove();
 
         }
 
@@ -187,11 +188,6 @@ public class Board {
         printTopBottom(board[0].length);
     }
 
-    // to do
-    private boolean isGameOver() {
-        return false;
-    }
-
     private void printTopBottom(int col){
         StringBuilder  _builder = new StringBuilder();
         _builder.append("      ");
@@ -201,5 +197,10 @@ public class Board {
             _builder.append("     ");
         }
         System.out.println(_builder);
+    }
+
+    // to do
+    private boolean isGameOver() {
+        return false;
     }
 }

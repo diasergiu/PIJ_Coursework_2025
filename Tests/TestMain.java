@@ -1,10 +1,4 @@
-import Planning.Board.Board;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.util.List;
-
-public class TestMani {
+public class TestMain {
 
     public static final String BAG = "Tests/TestResources/BagTest";
     public static final String BOARD = "Tests/TestResources/Board";
