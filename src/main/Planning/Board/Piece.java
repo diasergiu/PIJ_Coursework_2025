@@ -11,4 +11,20 @@ public class Piece {
         this.valueMultiplyer = valueMultiplyer;
         this.wiledCard = wiledCard;
     }
+
+    public char getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(char character) {
+        this.character = character;
+    }
+
+    public int getValueMultiplyer() {
+        return valueMultiplyer;
+    }
+
+    public void setValueMultiplyer(int valueMultiplyer) {
+        this.valueMultiplyer = valueMultiplyer;
+    }
 }

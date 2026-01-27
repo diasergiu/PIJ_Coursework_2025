@@ -5,6 +5,7 @@ import FileCollector.BoardFileCollector;
 import FileCollector.LanguageFileCollector;
 
 import java.util.HashSet;
+import java.util.Random;
 
 public class Board {
 
@@ -26,6 +27,7 @@ public class Board {
     private Bag gameBag;
     private HashSet<String> acceptableCharacters;
     private int[] bagsWithCharacters;
+    private int numberOfPiecesPerPlayer;
     public Board(int n, int m){
         board = new Tile[n][m];
         for(int i = 0; i < n; i++){
@@ -49,7 +51,34 @@ public class Board {
 
     }
     public void play() {
+        for(int player = 0; player < this.listPlayers.length; player++){
+            for(int indexPiecePlayer = 0; indexPiecePlayer < 7; indexPiecePlayer++){
+                Random rand = new Random();
+                int pieceToRemove = rand.nextInt(this.gameBag.size());
+                Piece piece = this.gameBag.RemoveFromBag(pieceToRemove);
+                putPieceForPlayer(player, piece, indexPiecePlayer);
+            }
+        }
 
+        int player = 0;
+        while(!isGameOver()){
+            drawBoard();
+            if(isOpenGame){
+                System.out.println("OPEN GAME:");
+                for(int i = 0; i < this.listPlayers.length; i++){
+                    if(i != player){
+                        listPlayers[i].printPieces();
+                    }
+                }
+            }
+
+            listPlayers[player].printPieces();
+
+        }
+
+    }
+    private void putPieceForPlayer(int player, Piece piece, int index){
+        this.listPlayers[player].setPieceAtIndex(piece, index);
     }
 
     private boolean isMoveCorrect(int row, int col, String characters, boolean directionDown){
@@ -63,7 +92,7 @@ public class Board {
                 i++;
             }
             if(directionDown){
-                row--;
+                row++;
             }else{
                 col++;
             }
@@ -82,12 +111,49 @@ public class Board {
             }
 
             if(directionDown){
-                row--;
+                row++;
             }
             else{
                 col++;
             }
         }
+    }
+
+    private void setScorForPlayer(int player, int rowStart, int colStart, int rowEnd, int colEnd, Piece[] piecesPut){
+        int wordMultiplayer = 1;
+        int totalValue = 0;
+        boolean upDown = true;
+        if(rowStart == rowEnd){
+            upDown = false;
+        }
+
+        for(int i = 0; i < piecesPut.length;){
+            if(piecesPut[i].getCharacter() == board[rowStart][colStart].getCharacter()) {
+                int currentMultiplayer = 1;
+                if (board[rowStart][i].isPremiumWord()) {
+                    wordMultiplayer *= board[rowStart][i].getValueMultiplayer();
+                } else {
+                    currentMultiplayer = board[rowStart][i].getValueMultiplayer();
+                }
+                currentMultiplayer *= piecesPut[i].getValueMultiplyer();
+                totalValue += currentMultiplayer;
+                i++;
+            }
+
+            if(upDown){
+                rowStart++;
+            }else{
+                colStart++;
+            }
+        }
+
+        totalValue *= wordMultiplayer;
+        if(piecesPut.length == this.numberOfPiecesPerPlayer){
+            totalValue += 60;
+        }
+
+        Player playerUpdate = this.listPlayers[player];
+        playerUpdate.setScore(playerUpdate.getScore() + totalValue);
     }
 
     // when we put pieces on the board we calculate if there are characters between the two piece placed
@@ -119,6 +185,11 @@ public class Board {
             System.out.println(i);
         }
         printTopBottom(board[0].length);
+    }
+
+    // to do
+    private boolean isGameOver() {
+        return false;
     }
 
     private void printTopBottom(int col){

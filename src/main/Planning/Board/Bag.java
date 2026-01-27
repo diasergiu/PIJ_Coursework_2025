@@ -23,4 +23,8 @@ public class Bag {
         return send;
     }
 
+    public int size(){
+        return this.bag.size();
+    }
+
 }

@@ -26,15 +26,11 @@ public class Game {
             String pathToBags = getFileNameFromNumber(listOfBags, new BagFileCollector(), messageBags);
             String pathToLanguage = getFileNameFromNumber(listOfLanguages, new LanguageFileCollector(), messageLanguage);
 
-//            System.out.println("How many players do you want");
-//            String numberPlayersCheck = "";
-//            while(!IntegerChecker.isInteger(numberPlayersCheck)){
-//
-//                numberPlayersCheck =
-//            }
+            int numberOfPlayers = numberOfPlayers();
 
             boolean openGame = openOrClosedGame();
-            Board newGame = new Board(pathToBags, pathToBoard, pathToLanguage, 2, openGame);
+            Board newGame = new Board(pathToBags, pathToBoard, pathToLanguage, numberOfPlayers, openGame);
+            newGame.play();
         }
     }
     private String getFileNameFromNumber(File[] files, FileCollector fileChecker, String message){
@@ -89,6 +85,19 @@ public class Game {
             }
             System.out.println("Not a valid respons plese chose again");
         }
+    }
+
+    private int numberOfPlayers(){
+        System.out.println("How many players do you want");
+        String numberPlayersCheck = "";
+        Scanner scanner = new Scanner(System.in);
+        while(!numberPlayersCheck.equals("exit")){
+            numberPlayersCheck = scanner.nextLine();
+            if(IntegerChecker.isInteger(numberPlayersCheck)){
+                return Integer.parseInt(numberPlayersCheck);
+            }
+        }
+        return 0;
     }
 
 

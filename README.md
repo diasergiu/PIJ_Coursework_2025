@@ -26,17 +26,17 @@ For marking, we will download and unzip your submission. We will then clone the 
 
 This coursework is about writing a game called *ScraeBBKle*. It is inspired by the board game Scrabble, although it has certain differences with the standard [Scrabble game](https://en.wikipedia.org/wiki/Scrabble). The game rules have been inspired by the ones available [here](https://www.hasbro.com/common/instruct/Scrabble_\(2003\).pdf) for the Scrabble game.
 
-To reduce your workload, ScraeBBKle has some simplifications over Scrabble, but also some generalisations.  The game will be played between two players, Player 1 and Player 2. Each of the two players may either be a **human player** or be a **computer player**.
+To reduce your workload, ScraeBBKle has some simplifications over Scrabble, but also some generalisations.  The game will be played between two players, PlayerTest 1 and PlayerTest 2. Each of the two players may either be a **human player** or be a **computer player**.
 
 In our setting, a board has `M` columns and `N` rows (where `M` and `N` are both integer numbers), so it has a total of `M*N` squares. The value `M` must be at least `7` and at most `26`, and `N` must be at least `10` and at most `99`. (We set these limits to avoid visualisation/printing problems for large boards.) We also require that a board has at least `192` squares, so `M*N >= 192` must hold. (For comparison, a standard Scrabble board has `M = N = 15` with a total of `15*15 = 225` squares.)
 
 The goal of the game is to populate the board with a grid of tiles, similar to a crossword, so that all words on the board are from a pre-defined word list. Both players have a rack of up to 7 tiles which is refilled from a tile bag after every move. Each tile has a letter and a numerical value.
 
-When the game is started, the user is asked whether to load a specific board from the file system or whether to use the default board. The default board is inspired by the Scrabble board. It is provided in the file `resources/defaultBoard.txt`. Then the user is asked whether Player 1 is supposed to be a human player or a computer player, and then the user is asked the same question about Player 2.
+When the game is started, the user is asked whether to load a specific board from the file system or whether to use the default board. The default board is inspired by the Scrabble board. It is provided in the file `resources/defaultBoard.txt`. Then the user is asked whether PlayerTest 1 is supposed to be a human player or a computer player, and then the user is asked the same question about PlayerTest 2.
 
 Finally, the user is asked whether to play an open game or a closed game. The only difference is that in an open game, the player who makes the next move also gets to see the other player's tiles.
 
-After that, both players get 7 randomly chosen tiles from the tile bag. The user is then shown the (currently empty) board. Player 1 plays the first move.
+After that, both players get 7 randomly chosen tiles from the tile bag. The user is then shown the (currently empty) board. PlayerTest 1 plays the first move.
 
 ## Notation and Symbols
 
@@ -45,7 +45,7 @@ The columns will be designated by lower-case letter characters from `a` to `z` a
 ## Gameplay
 
 1.
-The first move is made by Player 1, by combining two or more of their letters to a word or by passing their turn.  The word is placed on the board to read either to the right or downwards, with one letter on the **start square**, a designated square of the board. Like in Scrabble, diagonal words are not possible in ScraeBBKle. Whenever a tile is placed on a square, the letter and the value of the tile replace the square on the displayed board.
+The first move is made by PlayerTest 1, by combining two or more of their letters to a word or by passing their turn.  The word is placed on the board to read either to the right or downwards, with one letter on the **start square**, a designated square of the board. Like in Scrabble, diagonal words are not possible in ScraeBBKle. Whenever a tile is placed on a square, the letter and the value of the tile replace the square on the displayed board.
 
 2.
 The player that plays the first word must use the start square for one of the letters of the word.
@@ -54,7 +54,7 @@ The player that plays the first word must use the start square for one of the le
 The game computes the score resulting from the move. As long as the tile bag is not empty, the player who just made a move will have their tile rack topped up with tiles taken from the tile bag so that the player's rack has 7 tiles again.
 
 4.
-The next move is Player 2's. From now on, Player 1 and Player 2 take turns with their moves until one player has no more tiles on their rack or no more moves are possible.
+The next move is PlayerTest 2's. From now on, PlayerTest 1 and PlayerTest 2 take turns with their moves until one player has no more tiles on their rack or no more moves are possible.
 
 5.
 The player whose turn it is adds one or more letters to the letters already on the board to form a new word. All letters played in a move must be placed in one row to the right or downwards and contribute to a new word. It is allowed to skip occupied positions (for example, one may extend `NO` to `SNOW` by adding a `S` at the beginning and at the same time a `W` at the end). In ScraeBBKle, every move may add only *one occurrence* of a new or changed word on the board. In contrast to the original Scrabble game, it is not allowed to place a word at right angles to a word already on the board unless there is an overlap of the word resulting from the move with the earlier word on the board, nor to place a complete word parallel immediately next to a word already played. (Later in this document, we will see some examples to clarify further.)
@@ -158,9 +158,9 @@ Moreover, there are two wildcards "[_8]" of value 8 in the initial tile bag.
 
 Would you like to _l_oad a board or use the _d_efault board?
 Please enter your choice (l/d): d
-Is Player 1 a _h_uman player or a _c_omputer player?
+Is PlayerTest 1 a _h_uman player or a _c_omputer player?
 Please enter your choice (h/c): h
-Is Player 2 a _h_uman player or a _c_omputer player?
+Is PlayerTest 2 a _h_uman player or a _c_omputer player?
 Please enter your choice (h/c): c
 Would you like to play an _o_pen or a _c_losed game?
 Please enter your choice (o/c): o
@@ -185,9 +185,9 @@ Please enter your choice (o/c): o
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [N1], [Z9], [H4], [N1], [T1], [F4], [O1]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [E2], [E2], [D2], [N1], [I1], [D2], [L1]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -198,8 +198,8 @@ are wildcards.
 Entering "," passes the turn.
 DINED,d4
 The move is:    Letters: DINED at position d4
-Player 1 score: 20
-Player 2 score: 0
+PlayerTest 1 score: 20
+PlayerTest 2 score: 0
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -221,12 +221,12 @@ Player 2 score: 0
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 1's tiles:
+OPEN GAME: PlayerTest 1's tiles:
 OPEN GAME: [E2], [L1], [R1], [R1], [E2], [V4], [O1]
-It's your turn, Player 2!
+It's your turn, PlayerTest 2!
 The move is:    Letters: TNZON at position 7c
-Player 1 score: 20
-Player 2 score: 19
+PlayerTest 1 score: 20
+PlayerTest 2 score: 19
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -248,9 +248,9 @@ Player 2 score: 19
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [H4], [F4], [I1], [L1], [A1], [S1], [P3]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [E2], [L1], [R1], [R1], [E2], [V4], [O1]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -279,8 +279,8 @@ are wildcards.
 Entering "," passes the turn.
 OVE,4e
 The move is:    Letters: OVE at position 4e
-Player 1 score: 29
-Player 2 score: 19
+PlayerTest 1 score: 29
+PlayerTest 2 score: 19
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -302,12 +302,12 @@ Player 2 score: 19
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 1's tiles:
+OPEN GAME: PlayerTest 1's tiles:
 OPEN GAME: [L1], [R1], [R1], [E2], [T1], [C4], [O1]
-It's your turn, Player 2!
+It's your turn, PlayerTest 2!
 The move is:    Letters: PAFISH at position h5
-Player 1 score: 29
-Player 2 score: 38
+PlayerTest 1 score: 29
+PlayerTest 2 score: 38
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -329,9 +329,9 @@ Player 2 score: 38
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [L1], [U1], [S1], [I1], [_8], [N1], [N1]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [L1], [R1], [R1], [E2], [T1], [C4], [O1]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -342,8 +342,8 @@ are wildcards.
 Entering "," passes the turn.
 RET,10f
 The move is:    Letters: RET at position 10f
-Player 1 score: 39
-Player 2 score: 38
+PlayerTest 1 score: 39
+PlayerTest 2 score: 38
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -365,12 +365,12 @@ Player 2 score: 38
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 1's tiles:
+OPEN GAME: PlayerTest 1's tiles:
 OPEN GAME: [L1], [R1], [C4], [O1], [A1], [S1], [I1]
-It's your turn, Player 2!
+It's your turn, PlayerTest 2!
 The move is:    Letters: INNULaS at position 5i
-Player 1 score: 39
-Player 2 score: 134
+PlayerTest 1 score: 39
+PlayerTest 2 score: 134
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -392,9 +392,9 @@ Player 2 score: 134
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [I1], [T1], [G3], [A1], [I1], [W4], [M3]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [L1], [R1], [C4], [O1], [A1], [S1], [I1]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -414,12 +414,12 @@ are wildcards.
 Entering "," passes the turn.
 ,
 The move is:    Pass Move!
-OPEN GAME: Player 1's tiles:
+OPEN GAME: PlayerTest 1's tiles:
 OPEN GAME: [L1], [R1], [C4], [O1], [A1], [S1], [I1]
-It's your turn, Player 2!
+It's your turn, PlayerTest 2!
 The move is:    Letters: TAWIG at position j1
-Player 1 score: 39
-Player 2 score: 146
+PlayerTest 1 score: 39
+PlayerTest 2 score: 146
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -441,9 +441,9 @@ Player 2 score: 146
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [I1], [M3], [H4], [U1], [_8], [O1], [L1]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [L1], [R1], [C4], [O1], [A1], [S1], [I1]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -463,8 +463,8 @@ are wildcards.
 Entering "," passes the turn.
 CAL,m2
 The move is:    Letters: CAL at position m2
-Player 1 score: 50
-Player 2 score: 146
+PlayerTest 1 score: 50
+PlayerTest 2 score: 146
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -486,12 +486,12 @@ Player 2 score: 146
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 1's tiles:
+OPEN GAME: PlayerTest 1's tiles:
 OPEN GAME: [R1], [O1], [S1], [I1], [L1], [T1], [S1]
-It's your turn, Player 2!
+It's your turn, PlayerTest 2!
 The move is:    Letters: cHOLIUM at position o6
-Player 1 score: 50
-Player 2 score: 236
+PlayerTest 1 score: 50
+PlayerTest 2 score: 236
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -513,9 +513,9 @@ Player 2 score: 236
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [R1], [K6], [G3], [F4], [K6], [G3], [H4]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [R1], [O1], [S1], [I1], [L1], [T1], [S1]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -535,8 +535,8 @@ are wildcards.
 Entering "," passes the turn.
 IT,8i
 The move is:    Letters: IT at position 8i
-Player 1 score: 57
-Player 2 score: 236
+PlayerTest 1 score: 57
+PlayerTest 2 score: 236
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -558,12 +558,12 @@ Player 2 score: 236
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 1's tiles:
+OPEN GAME: PlayerTest 1's tiles:
 OPEN GAME: [R1], [O1], [S1], [L1], [S1], [D2], [J11]
-It's your turn, Player 2!
+It's your turn, PlayerTest 2!
 The move is:    Letters: FRG at position 2h
-Player 1 score: 57
-Player 2 score: 263
+PlayerTest 1 score: 57
+PlayerTest 2 score: 263
 
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
@@ -585,9 +585,9 @@ Player 2 score: 263
     a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p 
 
 Start position: d7
-OPEN GAME: Player 2's tiles:
+OPEN GAME: PlayerTest 2's tiles:
 OPEN GAME: [K6], [K6], [G3], [H4], [E2], [R1], [M3]
-It's your turn, Player 1! Your tiles:
+It's your turn, PlayerTest 1! Your tiles:
 [R1], [O1], [S1], [L1], [S1], [D2], [J11]
 Please enter your move in the format: "word,square" (without the quotes)
 For example, for suitable tile rack and board configuration, a downward move
@@ -648,7 +648,7 @@ See the file `resources/defaultBoard.txt` for an example. A file is *valid* if i
 
 > **Note: the requirements below are mandatory to follow. You will lose marks if your implementation does not meet these requirements** 
 
-In this coursework, you shall implement a Java program in which a user shall play ScraeBBKle described above. **Player 1 always makes the first move.**    
+In this coursework, you shall implement a Java program in which a user shall play ScraeBBKle described above. **PlayerTest 1 always makes the first move.**    
 
 ### Initiation
 
@@ -674,24 +674,24 @@ This is not a valid file. Please enter the file name of the board:
 
 This continues until the user provides a valid file. If a valid file is provided, the board that it contains is used for the game.
 
-Then the user is asked whether Player 1 shall be a human player or a computer player:
+Then the user is asked whether PlayerTest 1 shall be a human player or a computer player:
 
 ~~~
-Is Player 1 a _h_uman player or a _c_omputer player?
+Is PlayerTest 1 a _h_uman player or a _c_omputer player?
 Please enter your choice (h/c): 
 ~~~
 
 The user inputs `h` or `c`. Otherwise, the program states this and asks the user again for input.
-If the user inputs `h`, Player 1 will be a human player who makes their move inputs via the keyboard, and if the user inputs `c`, Player 1 will be a computer player and make their moves without user interaction. 
+If the user inputs `h`, PlayerTest 1 will be a human player who makes their move inputs via the keyboard, and if the user inputs `c`, PlayerTest 1 will be a computer player and make their moves without user interaction. 
 
-Then the user is asked whether Player 2 shall be a human player or a computer player:
+Then the user is asked whether PlayerTest 2 shall be a human player or a computer player:
 
 ~~~
-Is Player 2 a _h_uman player or a _c_omputer player?
+Is PlayerTest 2 a _h_uman player or a _c_omputer player?
 Please enter your choice (h/c): 
 ~~~
 
-The user inputs `h` or `c`, with analogous handling of the input as for the choice of Player 1.
+The user inputs `h` or `c`, with analogous handling of the input as for the choice of PlayerTest 1.
 
 Finally, the user is asked whether to play an open game or a closed game:
 
@@ -708,7 +708,7 @@ After these initial questions to the user, the game begins.
 
 ### Play moves
 
-As we observe in the example play, Player 1 and Player 2 take turns with their moves. Player 1 makes the first move.
+As we observe in the example play, PlayerTest 1 and PlayerTest 2 take turns with their moves. PlayerTest 1 makes the first move.
 
 Before each move, the program prints the current score and the current board.
 
@@ -745,21 +745,21 @@ If the condition for the end of the game is reached (see Rules above), this is s
 
 ~~~
 Game Over!
-Player 1 scored 216 points.
-Player 2 scored 203 points.
-Player 1 wins!
+PlayerTest 1 scored 216 points.
+PlayerTest 2 scored 203 points.
+PlayerTest 1 wins!
 ~~~
 
 (scores may vary). Instead of 
 
 ~~~
-Player 1 wins!
+PlayerTest 1 wins!
 ~~~
 
 it may also read
 
 ~~~
-Player 2 wins!
+PlayerTest 2 wins!
 ~~~
 
 or
