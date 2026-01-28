@@ -8,14 +8,20 @@ import FileCollector.*;
 // game must have human or computer players
 // game can be open or closed (you can see the tiles that the other player can have)
 public class Game {
+    private Scanner scanner;
     private static final String PATH_BAG = "resources/Bags";
     private static final String PATH_BOARDS = "resources/Boards";
     private static final String PATH_LANGUAGE = "resources/Language";
 
+    public Game() {
+        scanner = new Scanner(System.in);
+    }
+
     //Both players have a rack of up to 7 tiles which is refilled from a tile
     // bag after every move. Each tile has a letter and a numerical value.
     public void InnitializeGame(){
-        while(true){
+        boolean doYouWantToClose = false;
+        while(!doYouWantToClose){
             File[] listOfBoards = getFileFromDirectory(PATH_BOARDS);
             File[] listOfBags = getFileFromDirectory(PATH_BAG);
             File[] listOfLanguages = getFileFromDirectory(PATH_LANGUAGE);
@@ -31,10 +37,15 @@ public class Game {
             boolean openGame = openOrClosedGame();
             Board newGame = new Board(pathToBags, pathToBoard, pathToLanguage, numberOfPlayers, openGame);
             newGame.play();
+
+            String closeOrContinue = scanner.nextLine();
+            if(closeOrContinue.equals("Close")){
+                doYouWantToClose = true;
+            }
         }
     }
     private String getFileNameFromNumber(File[] files, FileCollector fileChecker, String message){
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         StringBuilder path = new StringBuilder();
         while(!fileChecker.isFileCorrect(path.toString())){
             path = getStringFromEnum(fileChecker);
@@ -75,7 +86,7 @@ public class Game {
     private boolean openOrClosedGame(){
         System.out.println("do you want an _O_pen game or _C_losed game");
         while(true){
-            Scanner scanner = new Scanner(System.in);
+//            Scanner scanner = new Scanner(System.in);
             String gameType = scanner.nextLine();
             if(gameType.equals("O")){
                 return true;
@@ -90,7 +101,7 @@ public class Game {
     private int numberOfPlayers(){
         System.out.println("How many players do you want");
         String numberPlayersCheck = "";
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         while(!numberPlayersCheck.equals("exit")){
             numberPlayersCheck = scanner.nextLine();
             if(IntegerChecker.isInteger(numberPlayersCheck)){

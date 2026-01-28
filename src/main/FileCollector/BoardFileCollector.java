@@ -55,7 +55,7 @@ public class BoardFileCollector implements FileCollector {
         if(tile.charAt(left) == '-'){
             left++;
         }
-        if(left <= right && !IntegerChecker.isInteger(tile.substring(left, right))){
+        if(left <= right && !IntegerChecker.isInteger(tile.substring(left, right + 1))){
             return false;
         }
         return true;

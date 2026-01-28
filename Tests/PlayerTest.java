@@ -3,7 +3,6 @@ import Planning.Board.Bag;
 import Planning.Board.Piece;
 import Planning.Board.Player;
 import Planning.Board.PlayerMove;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
@@ -20,7 +19,7 @@ public class PlayerTest {
         for(int indexPiecePlayer = 0; indexPiecePlayer < 7; indexPiecePlayer++){
             Random rand = new Random();
             int pieceToRemove = rand.nextInt(bag.size());
-            Piece piece = bag.RemoveFromBag(pieceToRemove);
+            Piece piece = bag.RemoveFromBagRandom();
             player.setPieceAtIndex(piece, indexPiecePlayer);
         }
         return player;
@@ -31,13 +30,13 @@ public class PlayerTest {
         player.printPieces();
     }
 
-    @Test
-    public void TestMove(){
-        Player player = deplayPlayer();
-        PlayerMove move = player.makeMove();
-        int[] pieces = move.indexPiecesMoved;
-        Piece[] piece = move.piecesSelected;
-    }
+//    @Test
+//    public void TestMove(){
+//        Player player = deplayPlayer();
+//        PlayerMove move = player.makeMove();
+//        int[] pieces = move.indexPiecesMoved;
+//        Piece[] piece = move.piecesSelected;
+//    }
 
     @Test
     public void testGetDirection() throws NoSuchMethodException {
@@ -45,4 +44,10 @@ public class PlayerTest {
         Method _getDirection = Player.class.getDeclaredMethod("getDirection", Player.class);
         _getDirection.setAccessible(true);
     }
+
+//    @Test
+//    public void getDirectionTest(){
+//        Player player = deplayPlayer();
+//        player.getDirection();
+//    }
 }

@@ -10,7 +10,7 @@ import java.util.HashSet;
 public class LanguageCollectorTest {
 
     private final static String PATH_TO_TEST = "Tests/TestResources/Language/TestNormal.txt";
-    private final static String PATH_TO_ORIGINALFILE = "resources/WordsInVocabulary/wordlist.txt";
+    private final static String PATH_TO_ORIGINALFILE = "resources/Language/wordlist.txt";
     @Test
     public void TestCanLoadAllWords(){
         HashSet<String> actual = LanguageFileCollector.getLanguageFromFile(PATH_TO_TEST);
@@ -47,7 +47,7 @@ public class LanguageCollectorTest {
 
     // Test is the File is correctly selected
     private final static String EMPTY_FILE = "Tests/TestResources/Language/TestEmpty";
-    private final static String NORMAL_FILE = "Tests/TestResources/Language/TestNormal";
+    private final static String NORMAL_FILE = "Tests/TestResources/Language/TestNormal.txt";
     private final static String NUMBERS_FILE = "Tests/TestResources/Language/TestNumbers"; // not working for some reason
     private final static String ODD_CHARACTER = "Tests/TestResources/Language/TestOddCharacter";
     private final static String TOW_WORDS = "Tests/TestResources/Language/TestTowWords";

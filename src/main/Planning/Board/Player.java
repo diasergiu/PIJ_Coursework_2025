@@ -27,6 +27,14 @@ public class Player {
         this.score = score;
     }
 
+    public Piece[] getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(Piece[] pieces) {
+        this.pieces = pieces;
+    }
+
     public void setPieceAtIndex(Piece piece, int index){
         this.pieces[index] = piece;
     }
@@ -45,13 +53,14 @@ public class Player {
         int[] result = new int[0];
         while(!correctPieceSelection) {
             correctPieceSelection = true;
+            System.out.print("Your pieces are: ");
             printPieces();
-            System.out.println("What word do you chose. Please type in the index of the piece");
+            System.out.println("What word do you chose. Please type in the index of the piece. from 0 to " + this.pieces.length );
             selectedPieces = scanner.nextLine();
             if(selectedPieces.equals("pass")){
                 return new PlayerMove();
             }
-            if(IntegerChecker.isInteger(selectedPieces)){
+            if(!IntegerChecker.isInteger(selectedPieces)){
                 System.out.println("Please use only numbers between 0 and" + pieces.length);
                 correctPieceSelection = false;
                 continue;
@@ -84,7 +93,7 @@ public class Player {
 
     private boolean getDirection(){
         String direction = "";
-        while(!direction.equals("D") || !direction.equals("L")){
+        while(!direction.equals("D") && !direction.equals("L")){
             System.out.println("What direction do you with to move to do you prefer _D_own or _L_eft");
             direction = scanner.nextLine();
         }

@@ -26,6 +26,7 @@ public class Board {
     private Player[] listPlayers;
     private Bag gameBag;
     private HashSet<String> acceptableCharacters;
+    private boolean[] turnPassed;
     private int[] bagsWithCharacters;
     private int numberOfPiecesPerPlayer;
     public Board(int n, int m){
@@ -42,6 +43,7 @@ public class Board {
         this.acceptableCharacters = LanguageFileCollector.getLanguageFromFile(pathToLanguage);
         this.listPlayers = new Player[numberOfPlayers];
         this.isOpenGame = openGame;
+        this.turnPassed = new boolean[numberOfPlayers];
         for(int i = 0; i < listPlayers.length; i++){
             listPlayers[i] = new Player();
         }
@@ -52,29 +54,45 @@ public class Board {
     }
     public void play() {
         for(int player = 0; player < this.listPlayers.length; player++){
-            for(int indexPiecePlayer = 0; indexPiecePlayer < 7; indexPiecePlayer++){
-                Random rand = new Random();
-                int pieceToRemove = rand.nextInt(this.gameBag.size());
-                Piece piece = this.gameBag.RemoveFromBag(pieceToRemove);
+            for(int indexPiecePlayer = 0; indexPiecePlayer < this.listPlayers[player].getPieces().length; indexPiecePlayer++){
+                Piece piece = this.gameBag.RemoveFromBagRandom();
                 putPieceForPlayer(player, piece, indexPiecePlayer);
             }
         }
 
         int player = 0;
         while(!isGameOver()){
+            this.turnPassed[player] = false;
             drawBoard();
             if(isOpenGame){
                 System.out.println("OPEN GAME:");
                 for(int i = 0; i < this.listPlayers.length; i++){
                     if(i != player){
+                        System.out.print("PLAYER " + i + " PIECES:");
                         listPlayers[i].printPieces();
                     }
                 }
             }
 
-            listPlayers[player].printPieces();
             PlayerMove move = listPlayers[player].makeMove();
-
+            if(move.passTurn){
+                turnPassed[player] = true;
+            }
+            else if(isMoveCorrect(move.row, move.col, move.piecesSelected, move.directionDown)){
+                changeBoard(move.row, move.col, move.piecesSelected, move.directionDown);
+                setScorForPlayer(player, move.row, move.col, move.directionDown, move.piecesSelected);
+                for(int i = 0; i < move.indexPiecesMoved.length; i++){
+                    Piece replacePiece = this.gameBag.RemoveFromBagRandom();
+                    listPlayers[player].setPieceAtIndex(replacePiece, move.indexPiecesMoved[i]);
+                }
+            }else{
+                System.out.println("IncorrectMove Try again");
+                player--;
+            }
+            player++;
+            if(player == this.listPlayers.length){
+                player = 0;
+            }
         }
 
     }
@@ -82,14 +100,14 @@ public class Board {
         this.listPlayers[player].setPieceAtIndex(piece, index);
     }
 
-    private boolean isMoveCorrect(int row, int col, String characters, boolean directionDown){
+    private boolean isMoveCorrect(int row, int col, Piece[] characters, boolean directionDown){
         StringBuilder builder = new StringBuilder();
         int i = 0;
-        while(i < characters.length() && row < board.length && col < board[row].length){
+        while(i < characters.length && row < board.length && col < board[row].length){
             if(this.board[row][col].getCharacter() != '.'){
                 builder.append(board[row][col].getCharacter());
             } else {
-                builder.append(characters.charAt(i));
+                builder.append(characters[i].getCharacter());
                 i++;
             }
             if(directionDown){
@@ -101,13 +119,13 @@ public class Board {
         if(!acceptableCharacters.contains(builder.toString())){
             return false;
         }
-        return i == characters.length();
+        return i == characters.length;
     }
 
-    private void changeBoard(int row, int col, String characters, boolean directionDown){
-        for(int i = 0; i < characters.length();){
+    private void changeBoard(int row, int col, Piece[] characters, boolean directionDown){
+        for(int i = 0; i < characters.length;){
             if(board[row][col].getCharacter() == '.'){
-                board[row][col].setCharacter(characters.charAt(i));
+                board[row][col].setCharacter(characters[i].getCharacter());
                 i++;
             }
 
@@ -120,13 +138,9 @@ public class Board {
         }
     }
 
-    private void setScorForPlayer(int player, int rowStart, int colStart, int rowEnd, int colEnd, Piece[] piecesPut){
+    private void setScorForPlayer(int player, int rowStart, int colStart, boolean upDown, Piece[] piecesPut){
         int wordMultiplayer = 1;
         int totalValue = 0;
-        boolean upDown = true;
-        if(rowStart == rowEnd){
-            upDown = false;
-        }
 
         for(int i = 0; i < piecesPut.length;){
             if(piecesPut[i].getCharacter() == board[rowStart][colStart].getCharacter()) {
@@ -167,9 +181,14 @@ public class Board {
     public void drawBoard(){
         printTopBottom(board[0].length);
         for(int i = 0; i < board.length; i++){
-            System.out.print(i + "     ");
+            StringBuilder builder = new StringBuilder();
+            builder.append(i);
+            for(int j = builder.length(); j < 6; j++){
+                builder.append(' ');
+            }
+//            System.out.print(i + "     ");
             for(int j = 0; j < board[i].length; j++){
-                StringBuilder builder = new StringBuilder();
+//                StringBuilder builder = new StringBuilder();
                 builder.append(board[i][j].getCharacter());
                 int defaultLengthBetweenCharacters = 6;
                 if(board[i][j].getValueMultiplayer() != 1){
@@ -178,12 +197,14 @@ public class Board {
                 if(board[i][j].isPremiumWord()){
                     builder.append('!');
                 }
-                for(int m = builder.length(); m < defaultLengthBetweenCharacters; m++){
+                for(int m = builder.length(); m < 12 + (defaultLengthBetweenCharacters * j); m++){
                     builder.append(' ');
                 }
-                System.out.print(builder);
+//                System.out.print(builder);
             }
-            System.out.println(i);
+            builder.append(i);
+            System.out.println(builder);
+//            System.out.println(i);
         }
         printTopBottom(board[0].length);
     }
@@ -201,6 +222,16 @@ public class Board {
 
     // to do
     private boolean isGameOver() {
+        int playerPassedTurns = 0;
+        for(int i = 0; i < this.listPlayers.length; i++){
+            if(this.turnPassed[i]){
+                playerPassedTurns++;
+            }
+        }
+        if(playerPassedTurns == this.listPlayers.length){
+            return true;
+        }
+
         return false;
     }
 }

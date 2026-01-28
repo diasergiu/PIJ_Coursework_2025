@@ -1,9 +1,8 @@
 package Planning.Board;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Bag {
 
@@ -15,7 +14,9 @@ public class Bag {
     public void addToBag(Piece newTile){
         bag.add(newTile);
     }
-    public Piece RemoveFromBag(int index){
+    public Piece RemoveFromBagRandom(){
+        Random rand = new Random();
+        int index = rand.nextInt(this.bag.size());
         Piece send = bag.get(index);
         int lastIndex = bag.size() - 1;
         bag.set(index, bag.get(lastIndex));
