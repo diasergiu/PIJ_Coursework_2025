@@ -5,7 +5,6 @@ import FileCollector.BoardFileCollector;
 import FileCollector.LanguageFileCollector;
 
 import java.util.HashSet;
-import java.util.Random;
 
 public class Board {
 
@@ -53,17 +52,20 @@ public class Board {
 
     }
     public void play() {
+        int defaultPieceSize = 7;
         for(int player = 0; player < this.listPlayers.length; player++){
-            for(int indexPiecePlayer = 0; indexPiecePlayer < this.listPlayers[player].getPieces().length; indexPiecePlayer++){
-                Piece piece = this.gameBag.RemoveFromBagRandom();
-                putPieceForPlayer(player, piece, indexPiecePlayer);
+            for(int indexPiecePlayer = 0; indexPiecePlayer < defaultPieceSize; indexPiecePlayer++){
+                this.listPlayers[player].addPiece(this.gameBag.RemoveFromBagRandom());
             }
         }
 
         int player = 0;
-        while(!isGameOver()){
+        boolean gameOver = false;
+
+        while(!gameOver){
             this.turnPassed[player] = false;
             drawBoard();
+            boolean nextPlayer = true;
             if(isOpenGame){
                 System.out.println("OPEN GAME:");
                 for(int i = 0; i < this.listPlayers.length; i++){
@@ -83,21 +85,21 @@ public class Board {
                 setScorForPlayer(player, move.row, move.col, move.directionDown, move.piecesSelected);
                 for(int i = 0; i < move.indexPiecesMoved.length; i++){
                     Piece replacePiece = this.gameBag.RemoveFromBagRandom();
-                    listPlayers[player].setPieceAtIndex(replacePiece, move.indexPiecesMoved[i]);
+                    listPlayers[player].addPiece(replacePiece);
                 }
             }else{
                 System.out.println("IncorrectMove Try again");
-                player--;
+                nextPlayer = false;
             }
-            player++;
-            if(player == this.listPlayers.length){
-                player = 0;
+            gameOver = isGameOver(player);
+            if(nextPlayer) {
+                player++;
+                if (player == this.listPlayers.length) {
+                    player = 0;
+                }
             }
         }
 
-    }
-    private void putPieceForPlayer(int player, Piece piece, int index){
-        this.listPlayers[player].setPieceAtIndex(piece, index);
     }
 
     private boolean isMoveCorrect(int row, int col, Piece[] characters, boolean directionDown){
@@ -169,6 +171,7 @@ public class Board {
 
         Player playerUpdate = this.listPlayers[player];
         playerUpdate.setScore(playerUpdate.getScore() + totalValue);
+
     }
 
     // when we put pieces on the board we calculate if there are characters between the two piece placed
@@ -221,7 +224,7 @@ public class Board {
     }
 
     // to do
-    private boolean isGameOver() {
+    private boolean isGameOver(int player) {
         int playerPassedTurns = 0;
         for(int i = 0; i < this.listPlayers.length; i++){
             if(this.turnPassed[i]){
@@ -229,6 +232,10 @@ public class Board {
             }
         }
         if(playerPassedTurns == this.listPlayers.length){
+            return true;
+        }
+
+        if(this.listPlayers[player].getPieces().isEmpty() && gameBag.bag.isEmpty()){
             return true;
         }
 

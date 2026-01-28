@@ -2,7 +2,6 @@ import FileCollector.BagFileCollector;
 import Planning.Board.Bag;
 import Planning.Board.Piece;
 import Planning.Board.Player;
-import Planning.Board.PlayerMove;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
@@ -20,7 +19,7 @@ public class PlayerTest {
             Random rand = new Random();
             int pieceToRemove = rand.nextInt(bag.size());
             Piece piece = bag.RemoveFromBagRandom();
-            player.setPieceAtIndex(piece, indexPiecePlayer);
+            player.addPiece(piece);
         }
         return player;
     }

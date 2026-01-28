@@ -34,7 +34,7 @@ public class PlayerMove {
         }
 
         int right = message.length() - 1;
-        if(message.charAt(right) < 97 || message.charAt(right) > 122){
+        if(!IntegerChecker.isLowerCaseChar(message.substring(right))){
             return false;
         }
         if(!IntegerChecker.isInteger(message.substring(0, right))){

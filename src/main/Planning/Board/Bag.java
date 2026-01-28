@@ -15,6 +15,9 @@ public class Bag {
         bag.add(newTile);
     }
     public Piece RemoveFromBagRandom(){
+        if(bag.isEmpty()){
+            return null;
+        }
         Random rand = new Random();
         int index = rand.nextInt(this.bag.size());
         Piece send = bag.get(index);

@@ -2,7 +2,9 @@ package Planning.Board;
 
 import FileCollector.IntegerChecker;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 // players can pass turns
@@ -10,12 +12,12 @@ public class Player {
 
     // gets extra 60 points if he uses all 7 tiles
     private int score;
-    private Piece[] pieces;
+    private List<Piece> pieces;
     Scanner scanner;
 
     public Player(){
         int defaultTilesPerPlayer = 7;
-        pieces = new Piece[defaultTilesPerPlayer];
+        pieces = new ArrayList<Piece>();
         scanner = new Scanner(System.in);
     }
 
@@ -27,22 +29,22 @@ public class Player {
         this.score = score;
     }
 
-    public Piece[] getPieces() {
+    public List<Piece> getPieces() {
         return pieces;
     }
 
-    public void setPieces(Piece[] pieces) {
+    public void setPieces(List<Piece> pieces) {
         this.pieces = pieces;
     }
 
-    public void setPieceAtIndex(Piece piece, int index){
-        this.pieces[index] = piece;
+    public void addPiece(Piece piece){
+        this.pieces.add(piece);
     }
 
     public void printPieces(){
         StringBuilder builder = new StringBuilder();
-        for(int i = 0; i < this.pieces.length; i++){
-            builder.append("[" + pieces[i].getCharacter() + pieces[i].getValueMultiplyer() + ']');
+        for(int i = 0; i < this.pieces.size(); i++){
+            builder.append("[" + pieces.get(i).getCharacter() + pieces.get(i).getValueMultiplyer() + ']');
         }
         System.out.println(builder.toString());
     }
@@ -51,44 +53,74 @@ public class Player {
         String selectedPieces = "";
         boolean correctPieceSelection = false;
         int[] result = new int[0];
+        Piece[] piecesSelected = new Piece[0]; // see later if this causes problems
         while(!correctPieceSelection) {
             correctPieceSelection = true;
             System.out.print("Your pieces are: ");
             printPieces();
-            System.out.println("What word do you chose. Please type in the index of the piece. from 0 to " + this.pieces.length );
+            System.out.println("What word do you chose. Please type in the index of the piece. from 0 to " + this.pieces.size() );
             selectedPieces = scanner.nextLine();
             if(selectedPieces.equals("pass")){
                 return new PlayerMove();
             }
             if(!IntegerChecker.isInteger(selectedPieces)){
-                System.out.println("Please use only numbers between 0 and" + pieces.length);
+                System.out.println("Please use only numbers between 0 and" + pieces.size());
                 correctPieceSelection = false;
                 continue;
             }
 
             HashSet<Integer> dontSelectSamePiece = new HashSet<>();
             result = new int[selectedPieces.length()];
-            Piece[] pieces = new Piece[result.length];
+            piecesSelected = new Piece[result.length];
             for (int i = 0; i < result.length; i++) {
                 result[i] = Character.getNumericValue(selectedPieces.charAt(i));
-                if(result[i] > this.pieces.length){
-                    System.out.println("Please use only numbers between 0 and" + pieces.length);
+                if(result[i] > this.pieces.size()){
+                    System.out.println("Please use only numbers between 0 and" + piecesSelected.length);
                     correctPieceSelection = false;
                     break;
                 }
-                if(dontSelectSamePiece.contains(result[i])){
+                if(dontSelectSamePiece.contains(result[i]) || result[i] >= this.pieces.size()){
                     correctPieceSelection = false;
-                    System.out.println("Please dont select the same piece twice");
+                    System.out.println("Invalid answer please try again");
                     break;
                 }
                 dontSelectSamePiece.add(result[i]);
-                pieces[i] = this.pieces[result[i]];
+                if(this.pieces.get(result[i]).getCharacter() == '?'){
+                    piecesSelected[i] = wildCardPiece(this.pieces.get(result[i]));
+                }
+                else {
+                    piecesSelected[i] = this.pieces.get(result[i]);
+                }
             }
         }
-        PlayerMove move = new PlayerMove(result, pieces);
-        while(!move.setCoordinates(scanner.nextLine()));
+        PlayerMove move = new PlayerMove(result, piecesSelected);
+        String coordinates;
+        boolean corectCoordinates = false;
+        do{
+            System.out.println("Chose the row and the column ");
+            corectCoordinates = move.setCoordinates(scanner.nextLine());
+            if(!corectCoordinates){
+                System.out.println("Incorect Coordinates, please try again");
+            }
+        } while(!corectCoordinates);
         move.setDirectionDown(getDirection());
         return move;
+    }
+
+    private Piece wildCardPiece(Piece piece){
+        boolean legitemateRespons = false;
+        Piece pieceReturn = new Piece(piece.getCharacter(), piece.getValueMultiplyer(), true);
+        while(!legitemateRespons){
+            System.out.println("You have selected a wild card please chose a character for that wild card");
+            String newChar = scanner.nextLine();
+            if(IntegerChecker.isLowerCaseChar(newChar)){
+                pieceReturn.setCharacter(newChar.charAt(0));
+                legitemateRespons = true;
+            }else{
+                System.out.println("Wrong input please try again");
+            }
+        }
+        return pieceReturn;
     }
 
     private boolean getDirection(){

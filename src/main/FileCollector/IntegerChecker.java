@@ -13,4 +13,14 @@ public class IntegerChecker {
         }
         return true;
     }
+
+    public static boolean isLowerCaseChar(String character){
+        if(character.length() != 1){
+            return false;
+        }
+        if(character.charAt(0) < 97 || character.charAt(0) > 122){
+            return false;
+        }
+        return true;
+    }
 }
