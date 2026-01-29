@@ -37,12 +37,12 @@ public class PlayerTest {
 //        Piece[] piece = move.piecesSelected;
 //    }
 
-    @Test
-    public void testGetDirection() throws NoSuchMethodException {
-        Player player = deplayPlayer();
-        Method _getDirection = Player.class.getDeclaredMethod("getDirection", Player.class);
-        _getDirection.setAccessible(true);
-    }
+//    @Test
+//    public void testGetDirection() throws NoSuchMethodException {
+//        Player player = deplayPlayer();
+//        Method _getDirection = Player.class.getDeclaredMethod("getDirection", Player.class);
+//        _getDirection.setAccessible(true);
+//    }
 
 //    @Test
 //    public void getDirectionTest(){

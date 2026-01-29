@@ -26,7 +26,6 @@ public class Board {
     private Bag gameBag;
     private HashSet<String> acceptableCharacters;
     private boolean[] turnPassed;
-    private int[] bagsWithCharacters;
     private int numberOfPiecesPerPlayer;
     public Board(int n, int m){
         board = new Tile[n][m];
@@ -42,25 +41,23 @@ public class Board {
         this.acceptableCharacters = LanguageFileCollector.getLanguageFromFile(pathToLanguage);
         this.listPlayers = new Player[numberOfPlayers];
         this.isOpenGame = openGame;
+        this.numberOfPiecesPerPlayer = 7;
         this.turnPassed = new boolean[numberOfPlayers];
         for(int i = 0; i < listPlayers.length; i++){
             listPlayers[i] = new Player();
         }
     }
 
-    private void makeBoardFromFile(String path){
-
-    }
     public void play() {
-        int defaultPieceSize = 7;
         for(int player = 0; player < this.listPlayers.length; player++){
-            for(int indexPiecePlayer = 0; indexPiecePlayer < defaultPieceSize; indexPiecePlayer++){
+            for(int indexPiecePlayer = 0; indexPiecePlayer < this.numberOfPiecesPerPlayer; indexPiecePlayer++){
                 this.listPlayers[player].addPiece(this.gameBag.RemoveFromBagRandom());
             }
         }
 
         int player = 0;
         boolean gameOver = false;
+        boolean firstTurn = true;
 
         while(!gameOver){
             this.turnPassed[player] = false;
@@ -77,21 +74,30 @@ public class Board {
             }
 
             PlayerMove move = listPlayers[player].makeMove();
+
+            if(firstTurn){
+                if(isFirstMoveOk(move.row, move.col, move.piecesSelected.length, move.directionDown)) {
+                    firstTurn = false;
+                }else{
+                    continue;
+                }
+            }
+
             if(move.passTurn){
                 turnPassed[player] = true;
-            }
-            else if(isMoveCorrect(move.row, move.col, move.piecesSelected, move.directionDown)){
+            } else if(isMoveCorrect(move.row, move.col, move.piecesSelected, move.directionDown)){
                 changeBoard(move.row, move.col, move.piecesSelected, move.directionDown);
                 setScorForPlayer(player, move.row, move.col, move.directionDown, move.piecesSelected);
                 for(int i = 0; i < move.indexPiecesMoved.length; i++){
-                    Piece replacePiece = this.gameBag.RemoveFromBagRandom();
-                    listPlayers[player].addPiece(replacePiece);
+                    listPlayers[player].changePiece(move.indexPiecesMoved[i], this.gameBag.RemoveFromBagRandom());
                 }
             }else{
                 System.out.println("IncorrectMove Try again");
                 nextPlayer = false;
             }
+
             gameOver = isGameOver(player);
+
             if(nextPlayer) {
                 player++;
                 if (player == this.listPlayers.length) {
@@ -100,6 +106,22 @@ public class Board {
             }
         }
 
+    }
+
+    private boolean isFirstMoveOk(int row, int col, int size, boolean directionDown){
+        int i = 0;
+        while(i < size && row < board.length && col < board[row].length){
+            if(this.board[row][col].isStartTile()){
+                return true;
+            }
+            if(directionDown){
+                row++;
+            }else{
+                col++;
+            }
+            i++;
+        }
+        return false;
     }
 
     private boolean isMoveCorrect(int row, int col, Piece[] characters, boolean directionDown){

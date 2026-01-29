@@ -37,6 +37,10 @@ public class Player {
         this.pieces = pieces;
     }
 
+    public void changePiece(int index, Piece piece){
+        this.pieces.set(index, piece);
+    }
+
     public void addPiece(Piece piece){
         this.pieces.add(piece);
     }
@@ -134,5 +138,11 @@ public class Player {
             directionDown = true;
         }
         return directionDown;
+    }
+
+    public void removePieceByIndex(int[] index){
+        for(int j : index) {
+            this.pieces.remove(j);
+        }
     }
 }

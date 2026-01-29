@@ -14,7 +14,12 @@ public class BoardFileCollector implements FileCollector {
             BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
             String col = reader.readLine();
             String row = reader.readLine();
-            if(col == null || row == null || col.isEmpty() || !IntegerChecker.isInteger(col) || !IntegerChecker.isInteger(row)){
+            String startTile = reader.readLine();
+            if(col == null || row == null || col.isEmpty()
+                    || !IntegerChecker.isInteger(col)
+                    || !IntegerChecker.isInteger(row)
+                    || !IntegerChecker.isInteger(startTile.substring(0,startTile.length() - 2))
+                    || !IntegerChecker.isLowerCaseChar(startTile.substring(startTile.length() - 1))){
                 return false;
             }
             int _row = Integer.parseInt(row);
@@ -75,6 +80,7 @@ public class BoardFileCollector implements FileCollector {
             int currentRow = 0;
             int col = Integer.parseInt(reader.readLine());
             int row = Integer.parseInt(reader.readLine());
+            String startTile = reader.readLine();
             Tile[][] board = new Tile[row][col];
             while((currentWord = reader.readLine()) != null){
                 String[] allTiles = currentWord.split(" ");
@@ -100,6 +106,9 @@ public class BoardFileCollector implements FileCollector {
                 }
                 currentRow++;
             }
+            int rowStartTile = Integer.parseInt(startTile.substring(0,startTile.length() - 2));
+            int colStartTile = startTile.charAt(startTile.length() - 1) - 96;
+            board[rowStartTile][colStartTile].setStartTile(true);
             return board;
         }catch (IOException e) {
             throw new RuntimeException(e);
