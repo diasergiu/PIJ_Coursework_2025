@@ -6,12 +6,6 @@ import java.util.Scanner;
 
 public class PlayerMoveTest {
 
-    private final Scanner scanner;
-
-    public PlayerMoveTest(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     @Test
     public void playerMoveTestOk(){
         PlayerMove move = new PlayerMove();

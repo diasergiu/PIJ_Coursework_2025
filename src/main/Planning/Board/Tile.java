@@ -24,7 +24,6 @@ public class Tile {
         int defaultValue = 1;
         this.character = defaultCharacter;
         this.valueMultiplayer = defaultValue;
-//        this(defaultCharacter, defaultValue);
     }
     public Tile(char character, int valueMultiplyer, boolean isPremiumWord) {
         this.character = character;
@@ -46,7 +45,4 @@ public class Tile {
     public void setPremiumWord(boolean premiumWord) {
         this.premiumWord = premiumWord;
     }
-
-    // dont know if this class is gonna play the role of pieces from your hand,
-    // we still need to represent the wildcard
 }

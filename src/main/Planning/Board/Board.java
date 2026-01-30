@@ -17,8 +17,6 @@ public class Board {
      */
     Tile[][] board;
     private boolean isOpenGame;
-    // we have a bag that holds a certain amount of pieces or tiles that the player can draw from to
-    // get back to 7 pieces after he played some
     /*
     *
     */
@@ -110,9 +108,10 @@ public class Board {
 
     private boolean isFirstMoveOk(int row, int col, int size, boolean directionDown){
         int i = 0;
+        boolean findStartTile = false;
         while(i < size && row < board.length && col < board[row].length){
             if(this.board[row][col].isStartTile()){
-                return true;
+                findStartTile = true;
             }
             if(directionDown){
                 row++;
@@ -121,7 +120,7 @@ public class Board {
             }
             i++;
         }
-        return false;
+        return findStartTile && i == size;
     }
 
     private boolean isMoveCorrect(int row, int col, Piece[] characters, boolean directionDown){
@@ -195,14 +194,6 @@ public class Board {
         playerUpdate.setScore(playerUpdate.getScore() + totalValue);
 
     }
-
-    // when we put pieces on the board we calculate if there are characters between the two piece placed
-    // need a way to select pieces that we have on the table
-    // we need to place those peices on the board
-    // we need an efficient way to veriffie it they formed a word, and any words that might intersect with the word placed by us
-    // we need to be able to take back pieces after we place them and take them back after we place a wrong word
-    // game ends where there are no more tiles in the tileBag and a player dosent have any more tiles
-    // the game can also end if all players pass their turn.
     public void drawBoard(){
         printTopBottom(board[0].length);
         for(int i = 0; i < board.length; i++){
@@ -211,9 +202,8 @@ public class Board {
             for(int j = builder.length(); j < 6; j++){
                 builder.append(' ');
             }
-//            System.out.print(i + "     ");
+
             for(int j = 0; j < board[i].length; j++){
-//                StringBuilder builder = new StringBuilder();
                 builder.append(board[i][j].getCharacter());
                 int defaultLengthBetweenCharacters = 6;
                 if(board[i][j].getValueMultiplayer() != 1){
@@ -225,11 +215,9 @@ public class Board {
                 for(int m = builder.length(); m < 12 + (defaultLengthBetweenCharacters * j); m++){
                     builder.append(' ');
                 }
-//                System.out.print(builder);
             }
             builder.append(i);
             System.out.println(builder);
-//            System.out.println(i);
         }
         printTopBottom(board[0].length);
     }
@@ -245,7 +233,6 @@ public class Board {
         System.out.println(_builder);
     }
 
-    // to do
     private boolean isGameOver(int player) {
         int playerPassedTurns = 0;
         for(int i = 0; i < this.listPlayers.length; i++){

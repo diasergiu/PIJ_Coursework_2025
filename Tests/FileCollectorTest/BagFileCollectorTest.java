@@ -15,16 +15,6 @@ public class BagFileCollectorTest {
     private static final String UNREGULAR_ORDER = "Tests/TestResources/BagTest/TestUnregularOrder";
     private static final String FEWER_COL = "Tests/TestResources/BagTest/TestFewerCol";
     private static final String FEWER_ROWS = "Tests/TestResources/BagTest/TestFewerRows";
-//    @Test
-//    public void testEmptyFile(){
-//        Bag bag = BagFileCollector.getBagFromFile(EMPTY_FILE);
-//    }
-//
-//    @Test
-//    public void testFileNotFound(){
-//        Bag bag = BagFileCollector.getBagFromFile(NOT_A_FILE);
-//
-//    }
 
     @Test
     public void testReadIncorectFile(){

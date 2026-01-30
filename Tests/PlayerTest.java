@@ -28,25 +28,4 @@ public class PlayerTest {
         Player player = deplayPlayer();
         player.printPieces();
     }
-
-//    @Test
-//    public void TestMove(){
-//        Player player = deplayPlayer();
-//        PlayerMove move = player.makeMove();
-//        int[] pieces = move.indexPiecesMoved;
-//        Piece[] piece = move.piecesSelected;
-//    }
-
-//    @Test
-//    public void testGetDirection() throws NoSuchMethodException {
-//        Player player = deplayPlayer();
-//        Method _getDirection = Player.class.getDeclaredMethod("getDirection", Player.class);
-//        _getDirection.setAccessible(true);
-//    }
-
-//    @Test
-//    public void getDirectionTest(){
-//        Player player = deplayPlayer();
-//        player.getDirection();
-//    }
 }

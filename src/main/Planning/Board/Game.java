@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.Scanner;
 
 import FileCollector.*;
-
-// game must have human or computer players
-// game can be open or closed (you can see the tiles that the other player can have)
 public class Game {
     private Scanner scanner;
     private static final String PATH_BAG = "resources/Bags";
@@ -17,8 +14,6 @@ public class Game {
         scanner = new Scanner(System.in);
     }
 
-    //Both players have a rack of up to 7 tiles which is refilled from a tile
-    // bag after every move. Each tile has a letter and a numerical value.
     public void InnitializeGame(){
         boolean doYouWantToClose = false;
         while(!doYouWantToClose){
@@ -45,7 +40,6 @@ public class Game {
         }
     }
     private String getFileNameFromNumber(File[] files, FileCollector fileChecker, String message){
-//        Scanner scanner = new Scanner(System.in);
         StringBuilder path = new StringBuilder();
         while(!fileChecker.isFileCorrect(path.toString())){
             path = getStringFromEnum(fileChecker);
@@ -86,7 +80,6 @@ public class Game {
     private boolean openOrClosedGame(){
         System.out.println("do you want an _O_pen game or _C_losed game");
         while(true){
-//            Scanner scanner = new Scanner(System.in);
             String gameType = scanner.nextLine();
             if(gameType.equals("O")){
                 return true;
@@ -101,7 +94,6 @@ public class Game {
     private int numberOfPlayers(){
         System.out.println("How many players do you want");
         String numberPlayersCheck = "";
-//        Scanner scanner = new Scanner(System.in);
         while(!numberPlayersCheck.equals("exit")){
             numberPlayersCheck = scanner.nextLine();
             if(IntegerChecker.isInteger(numberPlayersCheck)){
@@ -110,13 +102,4 @@ public class Game {
         }
         return 0;
     }
-
-
-    /*
-        The boards needs to have rows between 7 and 26
-        column between 10 and 99
-        and total amount os space needs to be bigger or equal to 192
-    */
-
-
 }

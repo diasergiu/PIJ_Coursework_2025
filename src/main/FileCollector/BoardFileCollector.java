@@ -15,11 +15,11 @@ public class BoardFileCollector implements FileCollector {
             String col = reader.readLine();
             String row = reader.readLine();
             String startTile = reader.readLine();
-            if(col == null || row == null || col.isEmpty()
+            if(col == null || row == null || startTile == null || col.isEmpty() || row.isEmpty() | startTile.isEmpty()
                     || !IntegerChecker.isInteger(col)
                     || !IntegerChecker.isInteger(row)
-                    || !IntegerChecker.isInteger(startTile.substring(0,startTile.length() - 2))
-                    || !IntegerChecker.isLowerCaseChar(startTile.substring(startTile.length() - 1))){
+                    || !IntegerChecker.isInteger(startTile.substring(startTile.length() - 1))
+                    || !IntegerChecker.isLowerCaseChar(startTile.substring(0, startTile.length() - 1))){
                 return false;
             }
             int _row = Integer.parseInt(row);
@@ -106,8 +106,8 @@ public class BoardFileCollector implements FileCollector {
                 }
                 currentRow++;
             }
-            int rowStartTile = Integer.parseInt(startTile.substring(0,startTile.length() - 2));
-            int colStartTile = startTile.charAt(startTile.length() - 1) - 96;
+            int rowStartTile = Integer.parseInt(startTile.substring(startTile.length() - 1));
+            int colStartTile = startTile.charAt(0) - 96;
             board[rowStartTile][colStartTile].setStartTile(true);
             return board;
         }catch (IOException e) {
